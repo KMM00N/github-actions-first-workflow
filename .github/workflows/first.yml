@@ -1,7 +1,25 @@
 name: Our First Workflow
-on: push
+
+on: 
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    types: 
+      - closed
+
 jobs:
-  echo:
+  example_job:
     runs-on: ubuntu-latest
+
     steps:
-      - run: echo 'Hello, GitHub Actions!' 
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      # Run a simple script
+      - name: Run a script
+        run: echo "This workflow runs on pull request closed or manual trigger"
+
+      # Example of another step
+      - name: Print GitHub Context
+        run: echo "${{ toJson(github) }}"
